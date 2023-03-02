@@ -8,7 +8,7 @@ use cocoa::foundation::{NSArray, NSString};
 fn main() {
     let path = env::args().into_iter().skip(1).next();
     match path {
-        Some(String::from("-h")) => {
+        Some(path) if path == "-h" => {
             help();
             exit(0);
         }
@@ -25,7 +25,7 @@ fn main() {
                 pasteboard.clearContents();
                 pasteboard.writeObjects(NSArray::arrayWithObject(nil, image));
             }
-            help();
+            println!("Image copied to clipboard");
             exit(0)
         }
         _ => {
@@ -37,7 +37,6 @@ fn main() {
 }
 
 fn help() {
-    println!("Image copied to clipboard");
     println!("image-to-clipboard <path>");
     println!("image-to-clipboard -h - show help");
 }
